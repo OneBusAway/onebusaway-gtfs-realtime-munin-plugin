@@ -73,10 +73,12 @@ public class GtfsRealtimeMuninPluginMain {
     if (_tripUpdatesUrl != null) {
       System.out.println("trips.label Trips");
       System.out.println("trips.info Count of TripUpdate entries");
+      System.out.println("trips.min 0");
     }
     if (_vehiclePositionsUrl != null) {
       System.out.println("vehicles.label Vehicles");
       System.out.println("vehicles.info Count of VehiclePosition entries");
+      System.out.println("vehicles.min 0");
     }
   }
 
