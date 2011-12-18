@@ -20,6 +20,8 @@ public class GtfsRealtimeMuninPluginMain {
 
   private static final String KEY_SOURCE = "source";
 
+  private static final String KEY_CATEGORY = "category";
+
   private static final ExtensionRegistry _registry = ExtensionRegistry.newInstance();
 
   static {
@@ -44,6 +46,8 @@ public class GtfsRealtimeMuninPluginMain {
 
   private String _source;
 
+  private String _category = "gtfs_realtime";
+
   public void parseEnvironment() throws MalformedURLException {
     Map<String, String> env = System.getenv();
     if (env.containsKey(KEY_TRIP_UPDATES_URL)) {
@@ -55,10 +59,16 @@ public class GtfsRealtimeMuninPluginMain {
     if (env.containsKey(KEY_SOURCE)) {
       _source = env.get(KEY_SOURCE);
     }
+    if (env.containsKey(KEY_CATEGORY)) {
+      _category = env.get(KEY_CATEGORY);
+    }
   }
 
   public void config() {
     System.out.println("graph_info GTFS-realtime feed statistics");
+    if (_category != null) {
+      System.out.println("graph_category " + _category);
+    }
     if (_tripUpdatesUrl != null) {
       System.out.println("trips.label Trips");
       System.out.println("trips.info Count of TripUpdate entries");
