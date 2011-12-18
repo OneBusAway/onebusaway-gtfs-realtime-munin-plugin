@@ -76,7 +76,7 @@ public class GtfsRealtimeMuninPluginMain {
       FieldDescriptor fieldDesc = FeedEntity.getDescriptor().findFieldByName(
           "trip_update");
       int count = countEntities(message, fieldDesc);
-      System.out.println("trips.count " + count);
+      System.out.println("trips.value " + count);
     }
     if (_vehiclePositionsUrl != null) {
       InputStream in = _vehiclePositionsUrl.openStream();
@@ -84,7 +84,7 @@ public class GtfsRealtimeMuninPluginMain {
       FieldDescriptor fieldDesc = FeedEntity.getDescriptor().findFieldByName(
           "vehicle");
       int count = countEntities(message, fieldDesc);
-      System.out.println("vehicles.count " + count);
+      System.out.println("vehicles.value " + count);
     }
   }
 
