@@ -65,6 +65,7 @@ public class GtfsRealtimeMuninPluginMain {
   }
 
   public void config() {
+    System.out.println("graph_title GTFS-realtime Entity Counts");
     System.out.println("graph_info GTFS-realtime feed statistics");
     if (_category != null) {
       System.out.println("graph_category " + _category);
