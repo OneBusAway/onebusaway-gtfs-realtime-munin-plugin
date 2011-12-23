@@ -1,7 +1,7 @@
 onebusaway-gtfs-realtime-munin-plugin
 
   The <<<onebusaway-gtfs-realtime-munin-plugin>>> is a {{{http://munin-monitoring.org/}Munin}} plugin for monitoring a
-{{{GTFS-realtime}http://code.google.com/transit/realtime/}} feed.  It can be used to monitor the output of a feed,
+{{{http://code.google.com/transit/realtime/}GTFS-realtime}} feed.  It can be used to monitor the output of a feed,
 counting the number of trips or vehicles active in the feed at any given time and logging the results:
 
 [gtfs_realtime_graph.png]
