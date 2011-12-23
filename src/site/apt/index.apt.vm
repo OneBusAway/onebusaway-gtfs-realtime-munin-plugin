@@ -1,0 +1,75 @@
+onebusaway-gtfs-realtime-munin-plugin
+
+  The <<<onebusaway-gtfs-realtime-munin-plugin>>> is a {{{http://munin-monitoring.org/}Munin}} plugin for monitoring a
+{{{GTFS-realtime}http://code.google.com/transit/realtime/}} feed.  It can be used to monitor the output of a feed,
+counting the number of trips or vehicles active in the feed at any given time and logging the results:
+
+[gtfs_realtime_graph.png]
+
+* Downloading the plugin:
+  
+#set( $url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=public&g=org.onebusaway&a=onebusaway-gtfs-realtime-munin-plugin&v=' + ${currentVersion} )
+
+  * Download the jar: {{{${url}}onebusaway-gtfs-realtime-munin-plugin.jar}}
+
+* Installation
+
+  Install the <<<onebusaway-gtfs-realtime-munin-plugin.jar>>> file in your Munin plugins directory, typically:
+  
++---+
+/usr/share/munin/plugins
++---+
+
+  Additionally, add a simple script file at the path:
+  
++---+
+/usr/share/munin/plugins/onebusaway_gtfs_realtime_munin_plugin
++---+
+
+  The script should have the following content:
+
++---+
+#!/bin/sh
+java -jar /usr/share/munin/plugins/onebusaway-gtfs-realtime-munin-plugin.jar $@
++---+
+
+  Make sure the script is executable.
+
+* Configuration
+
+  To configure an instance of the plugin, activate it by adding a symlink in the Munin plugin instance directory:
+  
++---+
+/etc/munin/plugins/gtfs_realtime -> /usr/share/munin/plugins/onebusaway_gtfs_realtime_munin_plugin
++---+
+
+  Finally, add a configuration file for the plugin at the following path:
+
++---+
+/etc/munin/plugin-conf.d/gtfs_realtime
++---+ 
+
+  The configuration file should have the following content:
+
++---+
+[gtfs_realtime]
+env.tripUpdatesUrl http://host/path
+env.vehiclePositionsUrl http://host/path
+env.source name
+env.category name
++---+
+
+  The plugin config file has the following options:
+
+  * <<<env.tripUpdatesUrl>>> - path to a GTFS-realtime trip updates feed.
+  
+  * <<<env.vehiclePositionsUrl>>> -  path to a GTFS-realtime vehicle positions feed.
+  
+  * <<<env.source>>> - optional filter to include only records with a FeedEntity.source matching the specified value.
+  This is a OneBusAway-specific extension.
+  
+  * <<<env.category>>> - optional Munin category name for the plugin output.
+  
+  []
+  
+  While all the configuration options are optional, at least one URL must be specified.
