@@ -26,6 +26,7 @@ import com.google.protobuf.ExtensionRegistry;
 import com.google.transit.realtime.GtfsRealtime.FeedEntity;
 import com.google.transit.realtime.GtfsRealtime.FeedMessage;
 import com.google.transit.realtime.GtfsRealtimeOneBusAway;
+import com.google.transit.realtime.GtfsRealtimeOneBusAway.OneBusAwayFeedEntity;
 
 public class GtfsRealtimeMuninPluginMain {
 
@@ -40,8 +41,8 @@ public class GtfsRealtimeMuninPluginMain {
   private static final ExtensionRegistry _registry = ExtensionRegistry.newInstance();
 
   static {
-    _registry.add(GtfsRealtimeOneBusAway.delay);
-    _registry.add(GtfsRealtimeOneBusAway.source);
+    _registry.add(GtfsRealtimeOneBusAway.obaFeedEntity);
+    _registry.add(GtfsRealtimeOneBusAway.obaTripUpdate);
   }
 
   public static void main(String[] args) throws IOException {
@@ -139,10 +140,14 @@ public class GtfsRealtimeMuninPluginMain {
     if (_source == null)
       return true;
 
-    if (!entity.hasExtension(GtfsRealtimeOneBusAway.source)) {
+    if (!entity.hasExtension(GtfsRealtimeOneBusAway.obaFeedEntity)) {
       return false;
     }
-    String source = entity.getExtension(GtfsRealtimeOneBusAway.source);
+    OneBusAwayFeedEntity obaEntity = entity.getExtension(GtfsRealtimeOneBusAway.obaFeedEntity);
+    if (!obaEntity.hasSource()) {
+      return false;
+    }
+    String source = obaEntity.getSource();
     return _source.equals(source);
   }
 }
